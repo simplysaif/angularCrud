@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app='crudApp'>
+	<head>
+		<title>Angular JS Crud Operation</title>
+		<script type="text/javascript" src="js/angular.js"></script>
+		<script type="text/javascript" src="js/jQuery-2.2.0.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/noConflict.js"></script>
+		<script type="text/javascript" src="js/modules.js"></script>
+		<script type="text/javascript" src="js/userController.js"></script>
+		<link rel='stylesheet' href='css/bootstrap.css' />
+		<link rel='stylesheet' href='css/style.css' />
+	<body>
+		
+		<div class='container' ng-controller='userController'ng-init = 'getUsers()' >
+			<div class='row'>
+				<h2>CRUD operation with mysql , angular JS and php</h2>
+				<div class='panel panel-default' > 
+					<div class='panel-heading' id='addRecord'>
+						<a class ='addRecord' href='javascript:void(0)' style="display: block">Add Record<span style="float:right;">+</span></a>
+						
+					</div>
+					<div class='panel-body form-controls hide '>
+						<div class="form-group">
+							<label for='name'>Name</label>
+							<input type='hidden' name='id' ng-model='id'></input>
+							<input type='text' class="form-control" ng-model="name" ></input>
+						</div>
+					
+						<div class="form-group">	
+							<label for='email'>Email</label>
+							<input type='text' class="form-control" ng-model="email" ></input>
+						</div>
+						
+						<div class="form-group">	
+							<label for='name'>Gender</label>
+							
+							<select class="form-control" ng-model = 'gender' ng-options = 'genderOption.label for genderOption in genderOptions.values track by genderOption.value'>
+							<option value=''>--Select Gender--</option>
+							</select>
+						</div>
+						<div class="form-group">	
+							<label for='phone'>Phone</label>
+							<input type='text' ng-model="phone" class="form-control" ></input>
+						</div>
+						<div class="form-group">	
+							<button class='btn btn-success' ng-click = "addUser()" ng-hide='tempUser.id' >Add</button>
+							<button ng-show='tempUser.id' class='btn btn-success' ng-click = "saveUser()" >Update</button>
+							<button class='btn btn-danger' >Cancel</button>
+						</div>	
+					</div>	
+				</div>
+				<div class='panel panel-default'> 
+					<div class='panel-heading'>
+						<a class = 'viewData' href='javascript:void(0)' style="display: block">View Records<span style="float:right;">+</span></a>
+						
+					</div>
+					<div>
+						<div class='panel-body recordContainer table-responsive'>
+						<div id='notification'>
+						
+						</div>
+							<table  class = 'table-responsive table table-striped table-hover'>
+								<thead>
+									<tr class='tblHead'>
+										<th>ID</th>
+										<th>Name</th>
+										<th>Email</th>
+										<th>Phone</th>
+										<th>Gender</th>
+										<th>Created At</th>
+										<th>Modified At</th>
+										<th>Action</th>
+									</tr>
+									<tr>
+										<td><input class='form-control' type='text'></td>
+										<td><input class='form-control' type='text'></td>
+										<td><input class='form-control' type='text'></td>
+										<td><input class='form-control' type='text'></td>
+										<td>
+											<select>
+												<option></option>
+												<option>Female</option>
+												<option>Male</option>
+												<option>Not Disclosed</option>
+											</select>
+										</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr ng-repeat = 'user in users '>
+										<td>#{{$index+1}}</td>
+										<td>{{user.name}}</td>
+										<td>{{user.email}}</td>
+										<td>{{user.phone}}</td>
+										<td>{{user.gender}}</td>
+										<td>{{user.created}}</td>
+										<td>{{user.modified}}</td>
+										<td><a href='' ng-click = 'deleteUser(user.id,$index)'  ><img src='images/delete.png' class='icon' /></a><a href='#addRecord' ng-click=updateUser(user,$index)><img class='icon'  src='images/edit.png' /></a></td>
+									</tr>
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		jAng(document).ready(function(){
+			/* replace this with ng-animate */
+			jAng('.addRecord').on('click',function(){
+				jAng('.form-controls').slideToggle(400);
+				jAng('.form-controls').removeClass('hide');
+			});
+			jAng('.viewData').on('click',function(){
+				jAng('.recordContainer').slideToggle(400);
+			})
+		});
+	</script>
+	<style type="text/css">
+	.icon{
+		height: 25px;
+		display: inline;
+	}
+	</style>
+</html>

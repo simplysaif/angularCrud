@@ -1,0 +1,1 @@
+jAng = jQuery.noConflict();
